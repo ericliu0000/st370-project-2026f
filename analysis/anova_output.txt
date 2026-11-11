@@ -1,0 +1,90 @@
+analysis
+
+data = 
+
+  struct with fields:
+
+         time: [96×1 double]
+     log_size: [96×1 double]
+      threads: [96×1 double]
+    run_order: [96×1 double]
+          rep: [96×1 double]
+         size: [96×1 double]
+
+
+WARNING!!!
+The variable name, size,  is a subset of the name, log_size.
+Certain plotting features may not work.
+You may want to change size so that this is no longer the case. 
+
+
+Variable Names in Input Dataset
+
+  rep
+  time
+  size
+  threads
+  log_size
+  run_order
+
+Enter class or model statement or type ex for examples
+
+lm>> class log_size threads
+
+
+Enter model statement
+
+lm>> model time = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df          SS            MS            F         P-val
+
+threads              3    0.017090    0.00569650      44.3248    1.1102e-16    
+log_size             3    0.214790    0.07159800     557.1026    0.00000000    
+log_size*threads     9    0.023571    0.00261890      20.3781    0.00000000    
+Error               80    0.010281    0.00012852                               
+
+R-square  0.96131
+
+Standard Error  0.011337
+
+
+lm>> model log(time) = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df            SS             MS              F      P-val
+
+threads              3       7.79500       2.598300       90.28720    0.00000    
+log_size             3     137.67310      45.891000     1594.62780    0.00000    
+log_size*threads     9       0.25858       0.028731        0.99836    0.44836    
+Error               80       2.30230       0.028779                              
+
+R-square  0.98445
+
+Standard Error  0.16964
+
+
+lm>> model sqrt(time) = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df          SS            MS             F         P-val
+
+threads              3    0.066819    0.02227300       76.3513    0.00000000    
+log_size             3    1.069600    0.35653000     1222.1779    0.00000000    
+log_size*threads     9    0.034865    0.00387390       13.2797    9.8821e-13    
+Error               80    0.023337    0.00029172                                
+
+R-square  0.98046
+
+Standard Error  0.01708
+
+
+lm>> rplot by log_size
+
+lm>> rplot by threads

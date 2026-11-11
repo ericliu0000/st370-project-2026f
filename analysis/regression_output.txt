@@ -1,0 +1,101 @@
+lm3(data)
+
+
+WARNING!!!
+The variable name, size,  is a subset of the name, log_size.
+Certain plotting features may not work.
+You may want to change size so that this is no longer the case. 
+
+
+Variable Names in Input Dataset
+
+  rep
+  time
+  size
+  threads
+  log_size
+  run_order
+
+Enter class or model statement or type ex for examples
+
+lm>> model time = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df          SS            MS           F         P-val
+
+Intercept            1    0.177400    0.17740000    304.9177    0.00000000    
+threads              1    0.015180    0.01518000     26.0908    1.754e-06     
+log_size             1    0.179930    0.17993000    309.2516    0.00000000    
+log_size*threads     1    0.017103    0.01710300     29.3964    4.7223e-07    
+Error               92    0.053526    0.00058181                              
+
+R-square  0.79857
+
+Standard Error  0.024121
+
+Parameter Estimates
+
+Source              Parameter Estimate    Std. Error           t         p-val
+
+Intercept                     -1.21230     0.1121700    -10.8078    0.00000000    
+threads                        0.14210     0.0278260      5.1066    1.7635e-06    
+log_size                       0.20846     0.0181340     11.4959    0.00000000    
+log_size*threads              -0.02439     0.0044984     -5.4218    4.7223e-07    
+
+lm>> model log(time) = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df             SS             MS             F      P-val
+
+Intercept            1    1442.017700    1442.017700    43615.7741    0.00000    
+threads              1       7.315600       7.315600      221.2687    0.00000    
+log_size             1     137.592600     137.592600     4161.6738    0.00000    
+log_size*threads     1       0.079103       0.079103        2.3926    0.12535    
+Error               92       3.041700       0.033062                             
+
+R-square  0.97945
+
+Standard Error  0.18183
+
+Parameter Estimates
+
+Source              Parameter Estimate    Std. Error            t      p-val
+
+Intercept                   -24.368600       0.84558    -28.81880    0.00000    
+threads                       0.137240       0.20976      0.65424    0.51459    
+log_size                      3.432200       0.13670     25.10800    0.00000    
+log_size*threads             -0.052452       0.03391     -1.54680    0.12535    
+
+lm>> model sqrt(time) = threads + log_size + log_size * threads
+
+
+Sequential Sums of Squares ANOVA Table
+
+Source              df          SS           MS            F         P-val
+
+Intercept            1    2.932200    2.9322000    2700.6343    0.00000000    
+threads              1    0.061021    0.0610210      56.2016    3.9551e-11    
+log_size             1    1.005500    1.0055000     926.1235    0.00000000    
+log_size*threads     1    0.028150    0.0281500      25.9269    1.8739e-06    
+Error               92    0.099889    0.0010858                               
+
+R-square  0.91638
+
+Standard Error  0.032951
+
+Parameter Estimates
+
+Source              Parameter Estimate    Std. Error           t         p-val
+
+Intercept                     -2.19370     0.1532400    -14.3162    0.00000000    
+threads                        0.17616     0.0380130      4.6343    1.1774e-05    
+log_size                       0.39393     0.0247720     15.9023    0.00000000    
+log_size*threads              -0.03129     0.0061452     -5.0918    1.8739e-06    
+
+lm>> rplot by log_size
+
+lm>> rplot by threads

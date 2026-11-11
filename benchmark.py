@@ -70,40 +70,32 @@ def build_trial_schedule() -> List[Dict]:
     return [trials[i] for i in sorted(trials.keys())]
 
 
-def measure_trial(n_dim: int, threads: int) -> float:
-    A = np.random.randn(n_dim, n_dim).astype(np.float64)
-    B = np.random.randn(n_dim, n_dim).astype(np.float64)
-    C = np.empty((n_dim, n_dim), dtype=np.float64)
-
-    with threadpool_limits(limits=threads, user_api="blas"):
-        t0 = time.perf_counter()
-        np.matmul(A, B, out=C)
-        t1 = time.perf_counter()
-
-    return t1 - t0
-
-
 def run_experiment() -> List[Dict]:
     schedule = build_trial_schedule()
-
     results = []
 
     for trial in schedule:
-        run_num = trial["run_order"]
-        size = trial["size"]
         n_dim = trial["n_dim"]
-        log_size = trial["log_size"]
         threads = trial["threads"]
-        rep = trial["replicate"]
 
-        elapsed = measure_trial(n_dim=n_dim, threads=threads)
+        A = np.random.randn(n_dim, n_dim).astype(np.float64)
+        B = np.random.randn(n_dim, n_dim).astype(np.float64)
+        C = np.empty((n_dim, n_dim), dtype=np.float64)
+
+        with threadpool_limits(limits=threads, user_api="blas"):
+            t0 = time.perf_counter()
+            np.matmul(A, B, out=C)
+            t1 = time.perf_counter()
+
+        elapsed = t1 - t0
+
         trial_record = {
-            "run_order": run_num,
-            "size": size,
+            "run_order": trial["run_order"],
+            "size": trial["size"],
             "n_dim": n_dim,
-            "log_size": log_size,
+            "log_size": trial["log_size"],
             "threads": threads,
-            "replicate": rep,
+            "replicate": trial["replicate"],
             "time_seconds": elapsed,
         }
 
